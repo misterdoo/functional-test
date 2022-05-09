@@ -7,14 +7,14 @@
 #include <sys/times.h> 
 
 
-char *prefix[] = {
+const char *prefix[] = {
     "NOR_",
     "EVT_",
     "TIM_",
     "NOM_",
     "TIN_",
     "PAK_",
-    "PAM_",
+    "PAM_"
 };
 
 int main(int argc, char** argv)
