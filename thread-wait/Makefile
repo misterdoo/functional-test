@@ -19,7 +19,6 @@ OBJS = $(patsubst %.cpp,$(BUILDDIR)/%.o,$(notdir $(SRCS)))
 vpath %.cpp $(SRCDIR)
 
 all: $(TARGET)
-	@./$(BUILDDIR)/$(TARGET)
 
 $(TARGET): $(OBJS)
 	$(CXX) $^ -o $(BUILDDIR)/$(TARGET)

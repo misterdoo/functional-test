@@ -39,7 +39,7 @@ int LogManager::InsertData(int max_count)
 {
 	int ret = TRUE;
 
-	mgh_info("Insert Data. max cnt(%d)\n", max_count);
+	mgh_info("Insert Data.\n");
 
 	return ret;
 }

@@ -37,7 +37,7 @@ int help_print(void)
 
 int force_remove_db_file(void)
 {
-	std::string db_file_abs_path(std::filesystem::current_path() / "sl-log.db");
+	std::string db_file_abs_path(std::filesystem::current_path() / "log.db");
 
 	RemoveFile(db_file_abs_path);
 	return TRUE;
@@ -58,7 +58,7 @@ int set_term_echo(struct termios& cur_termio, bool is_enable = true)
 int main (int argc, char* argv[])
 {
 	bool ret = true;
-	bool valid_input = false;
+	bool valid_input = true;
 	int input = 0;
 	//int max_db_count;
 	int add_field_count;
@@ -80,14 +80,10 @@ int main (int argc, char* argv[])
 
 	set_term_echo(cur_termio, false);
 
-	if (input != 'q') {
-		valid_input = true;
-	}
-
 	while (valid_input == true) {
-		std::cerr << "keyin : (" ;
 		input = getchar();
-		std::cerr << input << ")" << std::endl;
+
+		mgh_printf("keyin : (%c)\n", input);
 
 		switch (input)
 		{
@@ -104,9 +100,7 @@ int main (int argc, char* argv[])
 						std::cin.clear();
 						std::cin.ignore(1000, '\n');
 
-						mgh_warn("\ninvalid input. clear!! \n");
-					} else {
-						mgh_debug("\nInput Number : (%d)\n", (COUNT_DEFAULT_FIELD + add_field_count));
+						mgh_warn("invalid input. clear!! \n");
 					}
 
 					set_term_echo(cur_termio, false);
