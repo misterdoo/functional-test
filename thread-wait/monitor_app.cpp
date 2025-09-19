@@ -89,6 +89,7 @@ int MonitorApp::CreateManuallyAddThread(void)
 			ret = FALSE;
 			break;
 		}
+		status_thread_manual.store(TRUE);
 
 		thread_insert_manual = std::thread([this]() {
 				this->ThreadFuncManuallyAdd(
@@ -152,6 +153,8 @@ int MonitorApp::CreateAutoAddThread(void)
 			ret = FALSE;
 			break;
 		}
+
+		status_thread_auto.store(TRUE);
 
 		thread_insert_auto = std::thread([this]() {
 				this->ThreadFuncAutoAdd(
