@@ -17,6 +17,7 @@
 #include "log_manager.h"
 
 MonitorApp::MonitorApp(void)
+	: mp_log_man(nullptr)
 {
 }
 
@@ -89,6 +90,13 @@ int MonitorApp::CreateManuallyAddThread(void)
 			ret = FALSE;
 			break;
 		}
+
+		if (thread_insert_manual.joinable()) {
+			mgh_warn("Manual thread already exists\n");
+			ret = FALSE;
+			break;
+		}
+
 		status_thread_manual.store(TRUE);
 
 		thread_insert_manual = std::thread([this]() {
@@ -150,6 +158,12 @@ int MonitorApp::CreateAutoAddThread(void)
 	do {
 		if (mp_log_man == nullptr) {
 			mgh_error("Not alloc Log-manager class\n");
+			ret = FALSE;
+			break;
+		}
+
+		if (thread_insert_auto.joinable()) {
+			mgh_warn("Auto thread already exists\n");
 			ret = FALSE;
 			break;
 		}
@@ -226,6 +240,10 @@ void MonitorApp::ThreadFuncAutoAdd(std::mutex *p_mtx, std::condition_variable *p
 		// start insert db-data.
 		p_log_man->InsertData();
 		status_val = p_status->load();
+
+		if (status_val == FALSE) {
+			is_valid_thread = false;
+		}
 
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}

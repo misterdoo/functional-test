@@ -58,7 +58,7 @@ int set_term_echo(struct termios& cur_termio, bool is_enable = true)
 int main (int argc, char* argv[])
 {
 	bool ret = true;
-	bool valid_input = false;
+	bool valid_input = true;
 	int input = 0;
 	//int max_db_count;
 	int add_field_count;
@@ -79,10 +79,6 @@ int main (int argc, char* argv[])
 	tcgetattr(STDIN_FILENO, &cur_termio);
 
 	set_term_echo(cur_termio, false);
-
-	if (input != 'q') {
-		valid_input = true;
-	}
 
 	while (valid_input == true) {
 		input = getchar();
